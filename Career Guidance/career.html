@@ -1,0 +1,3547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPath - AI Enhanced Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fdcb6e;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --bg: #f5f6fa;
+            --white: #ffffff;
+            --text-gray: #636e72;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 5%;
+            min-height: 85vh;
+            background: linear-gradient(135deg, #f5f6fa 0%, #e3e6f3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 50%;
+            z-index: 1;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .hero-visuals {
+            position: relative;
+            width: 45%;
+            height: 500px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: floatMain 6s ease-in-out infinite;
+        }
+
+        /* Floating Icons */
+        .float-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--primary);
+            background: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            z-index: 2;
+        }
+
+        .icon-1 {
+            top: 10%;
+            left: 10%;
+            animation: float 4s ease-in-out infinite;
+            color: #ff7675;
+        }
+
+        .icon-2 {
+            top: 20%;
+            right: 10%;
+            animation: float 5s ease-in-out infinite 1s;
+            color: #74b9ff;
+        }
+
+        .icon-3 {
+            bottom: 20%;
+            left: 15%;
+            animation: float 4.5s ease-in-out infinite 0.5s;
+            color: #fdcb6e;
+        }
+
+        .icon-4 {
+            bottom: 30%;
+            right: 5%;
+            animation: float 5.5s ease-in-out infinite 1.5s;
+            color: #00b894;
+        }
+
+        /* Statistics Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px 5%;
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+            border-radius: 10px;
+            width: 90%;
+            margin-left: 5%;
+        }
+
+        .stat-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 50px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: rgba(108, 92, 231, 0.9);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            transition: bottom 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+
+        /* Contact Form */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5b4cc4;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 5%;
+            text-align: center;
+        }
+
+        .social-icons {
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        /* Keyframes */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes floatMain {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Floating Chatbot Container */
+        .floating-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            pointer-events: none;
+            /* Let clicks pass through container to body if not on elements */
+        }
+
+        /* Animated Robot Avatar */
+        .chat-bubble {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: robotFloat 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .chat-bubble:hover {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.7);
+        }
+
+        /* Robot Face Elements */
+        .robot-face {
+            width: 50px;
+            height: 40px;
+            background: white;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .robot-eyes {
+            display: flex;
+            gap: 12px;
+        }
+
+        .robot-eye {
+            width: 10px;
+            height: 10px;
+            background: #2d3436;
+            border-radius: 50%;
+            animation: blinkEyes 4s infinite;
+        }
+
+        .robot-antenna {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 15px;
+            background: #764ba2;
+            z-index: 1;
+        }
+
+        .robot-antenna::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -3px;
+            width: 10px;
+            height: 10px;
+            background: #ff7675;
+            border-radius: 50%;
+            animation: antennaPulse 2s infinite;
+        }
+
+        .robot-ears {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 64px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 0;
+        }
+
+        .robot-ear {
+            width: 6px;
+            height: 20px;
+            background: #a29bfe;
+            border-radius: 4px;
+        }
+
+        @keyframes robotFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes blinkEyes {
+
+            0%,
+            48%,
+            52%,
+            100% {
+                transform: scaleY(1);
+            }
+
+            50% {
+                transform: scaleY(0.1);
+            }
+        }
+
+        @keyframes antennaPulse {
+
+            0%,
+            100% {
+                background: #ff7675;
+                box-shadow: 0 0 0 0 rgba(255, 118, 117, 0.7);
+            }
+
+            50% {
+                background: #fab1a0;
+                box-shadow: 0 0 0 5px rgba(255, 118, 117, 0);
+            }
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chat-window.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 4px 8px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-btn.active {
+            background: #00b894;
+            border-color: #00b894;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .ai-message {
+            background: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input input:focus {
+            border-color: #667eea;
+        }
+
+        .chat-input button {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+
+        }
+
+        .chat-input button:hover {
+            background: #764ba2;
+        }
+
+        /* Voice Toggle Button */
+        .voice-toggle {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .voice-toggle:hover {
+            color: white;
+        }
+
+        /* AI Animation Text */
+        .typing {
+            display: inline-block;
+        }
+
+        .typing span {
+            animation: blink 1.4s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+
+            0%,
+            60%,
+            100% {
+                opacity: 0.3;
+            }
+
+            30% {
+                opacity: 1;
+            }
+        }
+
+        /* AI Stats Counter Animation */
+        .interview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .interview-modal.active {
+            display: flex;
+        }
+
+        .interview-container {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .interview-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .interview-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .interview-body {
+            padding: 30px;
+        }
+
+        .question-section {
+            margin-bottom: 25px;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .answer-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .interview-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+
+        .btn-interview {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-close {
+            background: #e0e0e0;
+            color: #2d3436;
+        }
+
+        .btn-close:hover {
+            background: #d0d0d0;
+        }
+
+        .interview-progress {
+            background: #f0f0f0;
+            height: 8px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .interview-progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .feedback-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feedback-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .feedback-text {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .score-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .interview-results {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .results-message {
+            font-size: 1.2rem;
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 100px;
+            }
+
+            .hero-content,
+            .hero-visuals {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .hero-visuals {
+                margin-top: 40px;
+                height: 300px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .nav-links {
+                display: none;
+                /* Simple hiding for now, can add toggle */
+            }
+        }
+
+        /* User Details Modal */
+        .user-details-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .user-details-modal.hidden {
+            display: none;
+        }
+
+        .user-details-container {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 550px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .user-details-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .user-details-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .user-details-header p {
+            margin: 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .user-details-body {
+            padding: 35px;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 0.95rem;
+        }
+
+        .form-row input,
+        .form-row select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-row input:focus,
+        .form-row select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-row input::placeholder {
+            color: #aaa;
+        }
+
+        .btn-submit-details {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit-details:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .required-field::after {
+            content: ' *';
+            color: #ff7675;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- User Details Collection Modal -->
+    <div class="user-details-modal" id="userDetailsModal">
+        <div class="user-details-container">
+            <div class="user-details-header">
+                <div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>
+                <h2>Welcome to EduPath!</h2>
+                <p>Let's get to know you better to personalize your experience</p>
+            </div>
+            <div class="user-details-body">
+                <form id="userDetailsForm">
+                    <div class="form-row">
+                        <label class="required-field">Full Name</label>
+                        <input type="text" id="userName" name="userName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="required-field">Email Address</label>
+                        <input type="email" id="userEmail" name="userEmail" placeholder="your.email@example.com"
+                            required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="required-field">Phone Number</label>
+                        <input type="tel" id="userPhone" name="userPhone" placeholder="+1 (555) 000-0000" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="required-field">Age</label>
+                        <input type="number" id="userAge" name="userAge" placeholder="Enter your age" min="13" max="100"
+                            required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="required-field">Current Education Level</label>
+                        <select id="userEducation" name="userEducation" required>
+                            <option value="">Select your education level</option>
+                            <option value="high-school">High School</option>
+                            <option value="undergraduate">Undergraduate</option>
+                            <option value="graduate">Graduate</option>
+                            <option value="postgraduate">Postgraduate</option>
+                            <option value="professional">Professional</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="required-field">Career Interest</label>
+                        <select id="userInterest" name="userInterest" required>
+                            <option value="">Select your primary interest</option>
+                            <option value="ml-engineer">Machine Learning Engineer</option>
+                            <option value="data-scientist">Data Scientist</option>
+                            <option value="ai-researcher">AI Researcher</option>
+                            <option value="nlp-specialist">NLP Specialist</option>
+                            <option value="cv-engineer">Computer Vision Engineer</option>
+                            <option value="ai-architect">AI/ML Architect</option>
+                            <option value="data-analyst">Data Analyst</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label>Location (Optional)</label>
+                        <input type="text" id="userLocation" name="userLocation" placeholder="City, Country">
+                    </div>
+
+                    <button type="submit" class="btn-submit-details">
+                        Start Your Journey 🚀
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">EduPath</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#ai-tech">AI Tech</a>
+            <a href="#ai-careers">AI Careers</a>
+            <a href="#student-profile">Profile</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Shape Your Future with <span>AI Guidance</span></h1>
+            <p>Discover personalized career paths tailored to your unique skills, interests, and aspirations. Let AI be
+                your mentor.</p>
+            <a href="#quiz" class="btn">Start Your Journey</a>
+        </div>
+        <div class="hero-visuals">
+            <img src="https://images.unsplash.com/photo-1677442d019cecf4d0f694f9505b330fd2b5b9cef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="AI Brain - Artificial Intelligence" class="hero-img">
+            <i class="fas fa-brain float-icon icon-1" style="color: #ff7675;"></i>
+            <i class="fas fa-microchip float-icon icon-2" style="color: #74b9ff;"></i>
+            <i class="fas fa-robot float-icon icon-3" style="color: #fdcb6e;"></i>
+            <i class="fas fa-infinity float-icon icon-4" style="color: #00b894;"></i>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-number" data-target="15000">0</span>
+            <span class="stat-label">Students Guided</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="120">0</span>
+            <span class="stat-label">Career Paths</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="50">0</span>
+            <span class="stat-label">Partner Universities</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="95">0</span>
+            <span class="stat-label">% Success Rate</span>
+        </div>
+    </div>
+
+    <section id="features" class="section">
+        <div class="section-title">
+            <h2>Why Choose Us</h2>
+        </div>
+        <!-- Motivational message -->
+        <div style="text-align: center; margin: 18px 0 28px 0;">
+            <p style="font-size: 1.05rem; color: #444; max-width: 900px; margin: 0 auto;">
+                Believe in your potential — every skill you build is a step closer to the role you deserve. We
+                provide guidance, resources, and practice so you can learn faster, fail safely, and grow stronger.
+            </p>
+            <div style="display: inline-block; margin-top: 12px; text-align: left;">
+                <ul style="padding-left: 20px; color: #444; font-size: 0.95rem; margin: 10px 0 0 0;">
+                    <li><strong>Practice daily:</strong> Small, consistent efforts beat short, intense bursts.</li>
+                    <li><strong>Build projects:</strong> Apply concepts to real problems — a portfolio speaks louder
+                        than a resume.</li>
+                    <li><strong>Stay curious:</strong> Learn from peers, mentors, and the industry to stay ahead.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-brain feature-icon"></i>
+                <h3>AI Analysis</h3>
+                <p>Advanced neural networks analyze your aptitude and interests to find the perfect match.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line feature-icon"></i>
+                <h3>ML Skill Mapping</h3>
+                <p>Machine learning identifies skill gaps and personalizes learning paths dynamically.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users feature-icon"></i>
+                <h3>AI Mentorship</h3>
+                <p>AI-powered mentor system paired with industry experts for 24/7 guidance.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap feature-icon"></i>
+                <h3>Natural Language Processing</h3>
+                <p>Understand job descriptions and requirements through advanced NLP analysis.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lightbulb feature-icon"></i>
+                <h3>AI-Driven Insights</h3>
+                <p>Get intelligent insights to guide your career decisions.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-sync feature-icon"></i>
+                <h3>Adaptive Learning</h3>
+                <p>AI continuously adapts your learning plan based on performance and preferences.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Resources Section -->
+    <section class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="section-title">
+            <h2 style="color: white;">🎓 Best Resources for Your Career</h2>
+            <p style="color: rgba(255,255,255,0.9);">Carefully curated learning materials, platforms, and tools to
+                accelerate your growth</p>
+        </div>
+
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin: 40px 0;">
+            <!-- Learning Platforms -->
+            <div
+                style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-book"
+                        style="margin-right: 10px;"></i> Learning Platforms</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffd700;">✓</span> <strong>Coursera</strong> - ML
+                        & AI Specializations</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffd700;">✓</span> <strong>Udacity</strong> -
+                        Nanodegree Programs</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffd700;">✓</span> <strong>fast.ai</strong> -
+                        Practical Deep Learning</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffd700;">✓</span> <strong>edX</strong> -
+                        University-level Courses</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffd700;">✓</span> <strong>DataCamp</strong> -
+                        Data Science Skills</li>
+                </ul>
+            </div>
+
+            <!-- Coding Platforms -->
+            <div
+                style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-code"
+                        style="margin-right: 10px;"></i> Coding Practice</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00d4ff;">✓</span> <strong>LeetCode</strong> -
+                        Interview Prep</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00d4ff;">✓</span> <strong>HackerRank</strong> -
+                        Skill Challenges</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00d4ff;">✓</span> <strong>Kaggle</strong> - ML
+                        Competitions</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00d4ff;">✓</span> <strong>GitHub</strong> - Open
+                        Source Contribution</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00d4ff;">✓</span> <strong>CodeSignal</strong> -
+                        Technical Assessment</li>
+                </ul>
+            </div>
+
+            <!-- AI/ML Tools -->
+            <div
+                style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-robot"
+                        style="margin-right: 10px;"></i> AI/ML Tools</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ff88;">✓</span> <strong>TensorFlow</strong> -
+                        Deep Learning</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ff88;">✓</span> <strong>PyTorch</strong> -
+                        Neural Networks</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ff88;">✓</span> <strong>Scikit-learn</strong>
+                        - ML Algorithms</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ff88;">✓</span> <strong>Jupyter</strong> -
+                        Interactive Notebooks</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ff88;">✓</span> <strong>Google Colab</strong>
+                        - Free GPU Training</li>
+                </ul>
+            </div>
+
+            <!-- Communities & Networks -->
+            <div
+                style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-users"
+                        style="margin-right: 10px;"></i> Communities</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ff6b9d;">✓</span> <strong>LinkedIn</strong> -
+                        Professional Network</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ff6b9d;">✓</span> <strong>Stack
+                            Overflow</strong> - Developer Q&A</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ff6b9d;">✓</span> <strong>Reddit
+                            (r/MachineLearning)</strong> - Discussions</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ff6b9d;">✓</span> <strong>Discord
+                            Servers</strong> - Tech Communities</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ff6b9d;">✓</span> <strong>Meetup.com</strong> -
+                        Local Events</li>
+                </ul>
+            </div>
+
+            <!-- Research & Documentation -->
+            <div
+                style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-flask"
+                        style="margin-right: 10px;"></i> Research</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffa500;">✓</span> <strong>arXiv</strong> -
+                        Research Papers</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffa500;">✓</span> <strong>Papers with
+                            Code</strong> - SOTA Models</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffa500;">✓</span> <strong>Google
+                            Scholar</strong> - Academic Search</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffa500;">✓</span> <strong>Medium</strong> -
+                        Technical Articles</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #ffa500;">✓</span> <strong>Dev.to</strong> -
+                        Developer Blogs</li>
+                </ul>
+            </div>
+
+            <!-- Job Opportunities -->
+            <div
+                style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+                <h3 style="margin-top: 0; color: #fff; display: flex; align-items: center;"><i class="fas fa-briefcase"
+                        style="margin-right: 10px;"></i> Job Platforms</h3>
+                <ul style="list-style: none; padding: 0; margin: 15px 0;">
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ffff;">✓</span> <strong>LinkedIn Jobs</strong>
+                        - Global Opportunities</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ffff;">✓</span> <strong>Indeed</strong> -
+                        Diverse Roles</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ffff;">✓</span> <strong>Levels.fyi</strong> -
+                        Salary Comparison</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ffff;">✓</span> <strong>AngelList</strong> -
+                        Startup Jobs</li>
+                    <li style="margin: 10px 0; padding-left: 25px; position: relative;"><span
+                            style="position: absolute; left: 0; color: #00ffff;">✓</span> <strong>Glassdoor</strong> -
+                        Reviews & Insights</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <div
+            style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; margin-top: 40px; border-left: 4px solid #ffd700;">
+            <h3 style="margin-top: 0; color: #ffd700;">📊 Why These Resources?</h3>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div>
+                    <div style="font-size: 2.5rem; color: #00ff88; font-weight: bold;">500K+</div>
+                    <div style="font-size: 0.95rem;">Active Learners Worldwide</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #00d4ff; font-weight: bold;">10K+</div>
+                    <div style="font-size: 0.95rem;">Tech Job Listings Daily</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #ff6b9d; font-weight: bold;">95%</div>
+                    <div style="font-size: 0.95rem;">Success Rate Certified</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; color: #ffa500; font-weight: bold;">24/7</div>
+                    <div style="font-size: 0.95rem;">Learning Support Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-tech" class="section" style="background: linear-gradient(135deg, #f5f6fa 0%, #e3e6f3 100%);">
+        <div class="section-title">
+            <h2>AI Technologies We Use</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-microchip feature-icon"></i>
+                <h3>Deep Learning</h3>
+                <p>Neural networks trained on 10M+ career data points for accurate predictions.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-comments feature-icon"></i>
+                <h3>NLP & ChatAI</h3>
+                <p>Conversational AI answers career questions with contextual relevance.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-tasks feature-icon"></i>
+                <h3>Computer Vision</h3>
+                <p>Analyze industry trends through visual data and market reports.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-exchange-alt feature-icon"></i>
+                <h3>Reinforcement Learning</h3>
+                <p>AI learns from your choices to continuously improve recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cube feature-icon"></i>
+                <h3>Data Mining</h3>
+                <p>Extract patterns from LinkedIn, job boards, and company data for insights.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-search feature-icon"></i>
+                <h3>Semantic Analysis</h3>
+                <p>Understand the true meaning behind job requirements and skill descriptions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-careers" class="section">
+        <div class="section-title">
+            <h2>🚀 Popular AI Career Paths in Demand</h2>
+            <p>Most sought-after roles with highest growth potential and competitive salaries</p>
+        </div>
+
+        <!-- Career Cards with Details -->
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; margin: 40px 0;">
+            <!-- ML Engineer -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">ML Engineer</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.49Cr - ₹2.08Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #b0b0b0;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>35% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #b0b0b0;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>45,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">Python, TensorFlow, PyTorch, MLOps,
+                            System Design</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Scientist -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">Data Scientist</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.25Cr - ₹1.83Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>28% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>38,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">Python, SQL, Statistics, ML, Data Viz
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Researcher -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">AI Researcher</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.41Cr - ₹2.32Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>32% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>12,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">Math/ML Theory, Research, Paper
+                            Writing, Deep Learning</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NLP Specialist -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">NLP Specialist</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.33Cr - ₹1.99Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>42% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>15,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">Transformers, BERT, LLMs, Prompt
+                            Engineering</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Computer Vision Engineer -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">Computer Vision Engineer</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.37Cr - ₹2.03Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>38% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>18,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">OpenCV, CNN, Image Processing, YOLO,
+                            Segmentation</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Architect -->
+            <div
+                style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                <div
+                    style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); height: 120px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div style="padding: 25px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">AI/ML Architect</h3>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-rupee-sign" style="color: #00d4ff; margin-right: 8px;"></i>
+                        <span><strong>₹1.58Cr - ₹2.49Cr</strong> avg salary</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-chart-line" style="color: #00ff88; margin-right: 8px;"></i>
+                        <span><strong>40% YoY</strong> job growth</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 8px 0; color: #666;">
+                        <i class="fas fa-briefcase" style="color: #ffd700; margin-right: 8px;"></i>
+                        <span><strong>22,000+</strong> open positions</span>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <p style="font-size: 0.9rem; color: #555; margin: 8px 0;"><strong>✓ Key Skills:</strong></p>
+                        <p style="font-size: 0.85rem; color: #777; margin: 5px 0;">System Design, MLOps, Cloud,
+                            Leadership, Scalability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Industry Statistics -->
+        <div
+            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 12px; margin-top: 50px; text-align: center;">
+            <h3 style="margin-top: 0; font-size: 1.8rem; margin-bottom: 30px;">📈 AI Industry Growth Stats</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+                <div>
+                    <div style="font-size: 2.8rem; font-weight: bold; margin-bottom: 10px;">150K+</div>
+                    <div>AI/ML Jobs Available</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.8rem; font-weight: bold; margin-bottom: 10px;">35%</div>
+                    <div>Average Salary Growth</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.8rem; font-weight: bold; margin-bottom: 10px;">₹1.78Cr</div>
+                    <div>Median Salary (Global)</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.8rem; font-weight: bold; margin-bottom: 10px;">500%</div>
+                    <div>Job Demand Growth (5Y)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1677442d019cecf4d0f694f9505b330fd2b5b9cef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="AI Engineer">
+        <div class="gallery-overlay">AI/ML Engineer</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="Data Scientist">
+        <div class="gallery-overlay">Data Scientist</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="AI Architect">
+        <div class="gallery-overlay">AI Architect</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1633356122544-f134324ef6db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="ML Operations">
+        <div class="gallery-overlay">ML Operations Specialist</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="NLP Specialist">
+        <div class="gallery-overlay">NLP Specialist</div>
+    </div>
+    <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="AI Ethics Officer">
+        <div class="gallery-overlay">AI Ethics Officer</div>
+    </div>
+    </div>
+    </section>
+
+    <section class="section" style="background: var(--white);">
+        <div class="section-title">
+            <h2>AI Tools & Platforms You'll Master</h2>
+            <p>Industry-standard technologies with curated learning resources</p>
+        </div>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 25px; margin: 30px 0;">
+            <!-- Python & TensorFlow -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #FF6B6B;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-code" style="font-size: 2rem; color: #FF6B6B; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">Python & TensorFlow</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">Modern AI development stack trusted by
+                    Google, Meta, and OpenAI.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> <a href="#"
+                                style="color: #667eea; text-decoration: none;">TensorFlow Official Docs</a></li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Coursera - TensorFlow Developer (2-3
+                            months)</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Google Colab - Free Practice Environment
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Kaggle - TensorFlow Projects &
+                            Competitions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PyTorch & Keras -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #4ECDC4;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-vial" style="font-size: 2rem; color: #4ECDC4; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">PyTorch & Keras</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">Flexible deep learning frameworks preferred
+                    by researchers and practitioners.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> PyTorch Official Tutorials</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> fast.ai - Practical Deep Learning (Free)
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Udacity - Deep Learning Nanodegree</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Stanford CS231N - CNN for Visual
+                            Recognition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Apache Spark & Hadoop -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #FFD93D;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-database" style="font-size: 2rem; color: #FFD93D; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">Apache Spark & Hadoop</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">Distributed computing for processing massive
+                    datasets at scale.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Udemy - Apache Spark Masterclass</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> DataCamp - PySpark Fundamentals</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Hortonworks - Hadoop Certification</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> YouTube - Big Data Processing Tutorials
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Cloud AI Platforms -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #A8E6CF;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-cloud" style="font-size: 2rem; color: #A8E6CF; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">Cloud AI Platforms</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">AWS SageMaker, Google Cloud AI, Azure ML for
+                    production deployments.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> AWS - Machine Learning Fundamentals (Free
+                            Tier)</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Google Cloud - ML Engineering Path</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> A Cloud Guru - Cloud ML Certification</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Coursera - Cloud ML Specializations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data Visualization Tools -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #FF8B94;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-chart-bar" style="font-size: 2rem; color: #FF8B94; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">Tableau & Power BI</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">Advanced visualization tools for presenting
+                    AI insights to stakeholders.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Tableau Learning Hub (Free Certification)
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Microsoft - Power BI Training (Official)
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Udemy - Complete Tableau Masterclass</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> LinkedIn Learning - Data Visualization
+                            Skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Jupyter & Scikit-learn -->
+            <div
+                style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid #B4A7D6;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <i class="fas fa-flask" style="font-size: 2rem; color: #B4A7D6; margin-right: 12px;"></i>
+                    <h3 style="margin: 0; color: #333;">Jupyter & Scikit-learn</h3>
+                </div>
+                <p style="color: #555; font-size: 0.95rem; margin: 10px 0;">Industry-standard tools for ML
+                    experimentation and algorithm implementation.</p>
+                <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 15px;">
+                    <p style="font-weight: bold; color: #333; font-size: 0.9rem; margin: 8px 0;">📚 Learning Resources:
+                    </p>
+                    <ul style="list-style: none; padding: 0; margin: 8px 0; font-size: 0.85rem;">
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Scikit-learn Official Documentation</li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> DataCamp - Machine Learning Fundamentals
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Kaggle Kernels - ML Tutorials & Notebooks
+                        </li>
+                        <li style="margin: 6px 0; padding-left: 20px; position: relative;"><span
+                                style="position: absolute; left: 0;">→</span> Andrew Ng - ML Course (Coursera)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="section-title">
+            <h2 style="color: white;">AI & Future Technology Stats</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">400M</div>
+                <div style="font-size: 1.2rem;">AI Jobs Created by 2030</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">$136B</div>
+                <div style="font-size: 1.2rem;">Global AI Market Size</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">88%</div>
+                <div style="font-size: 1.2rem;">Enterprises Implementing AI</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; font-weight: bold; margin-bottom: 10px;">15K+</div>
+                <div style="font-size: 1.2rem;">AI Researchers Worldwide</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="student-profile" class="section"
+        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 80px 5%;">
+        <div class="section-title">
+            <h2 style="color: white;">Student Profile Dashboard</h2>
+        </div>
+
+        <div style="max-width: 1200px; margin: auto;">
+            <!-- Profile Header -->
+            <div
+                style="background: white; color: var(--dark); border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);">
+                <div style="display: grid; grid-template-columns: 150px 1fr; gap: 30px; align-items: center;">
+                    <div style="text-align: center;">
+                        <div
+                            style="width: 130px; height: 130px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: auto; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+                            🤖
+                        </div>
+                    </div>
+                    <div>
+                        <h2 style="margin-bottom: 10px; color: #667eea;">Mental Minds</h2>
+                        <p style="color: #28a745; margin-top: 4px; margin-bottom: 10px;"><strong>AI Assistant:</strong>
+                            Active — Chat enabled</p>
+                        <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 15px;"><strong>Student
+                                ID:</strong> EDU-2024-001523</p>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            <div>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 5px;">📅 Joined</p>
+                                <p style="font-weight: 600; font-size: 1.1rem;">January 2024</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 5px;">🎓 Current
+                                    Level</p>
+                                <p style="font-weight: 600; font-size: 1.1rem;">Intermediate</p>
+                            </div>
+                            <div>
+                                <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 5px;">📊 Overall
+                                    Progress</p>
+                                <p style="font-weight: 600; font-size: 1.1rem;\">68%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+
+                <!-- Personal Information -->
+                <div
+                    style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);">
+                    <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                        <i style="font-size: 1.5rem;">ℹ️</i> Personal Information
+                    </h3>
+                    <div>
+                        <p style="margin-bottom: 12px;"><strong>Email:</strong> singhshivam41273@gmail.com</p>
+                        <p style="margin-bottom: 12px;"><strong>Phone:</strong> 9517480434</p>
+                        <p style="margin-bottom: 12px;"><strong>Location:</strong> San Francisco, CA</p>
+                        <p style="margin-bottom: 12px;"><strong>Age:</strong> 24 years old</p>
+                        <p style="margin-bottom: 12px;"><strong>Education:</strong> B.S. Computer Science</p>
+                        <p style="margin-bottom: 12px;"><strong>Years Experience:</strong> 2 years</p>
+                    </div>
+                </div>
+
+                <!-- Skills & Competencies -->
+                <div
+                    style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);">
+                    <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                        <i style="font-size: 1.5rem;">⭐</i> Top Skills
+                    </h3>
+                    <div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong>Python</strong>
+                                <span style="color: #667eea;">85%</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div
+                                    style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 85%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong>Machine Learning</strong>
+                                <span style="color: #667eea;">72%</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div
+                                    style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 72%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <strong>Data Analysis</strong>
+                                <span style="color: #667eea;">78%</span>
+                            </div>
+                            <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div
+                                    style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 78%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Career Matching Results -->
+            <div
+                style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); margin-bottom: 30px;">
+                <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                    <i style="font-size: 1.5rem;">🎯</i> AI Career Matches
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                    <div
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h4 style="margin-bottom: 10px;">🥇 Top Match</h4>
+                        <h3 style="margin-bottom: 10px;">ML Engineer</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 10px;">Match Score: <strong>92%</strong></p>
+                        <p style="font-size: 0.9rem;">Perfect alignment with your skills and interests. High demand in
+                            market.</p>
+                    </div>
+                    <div
+                        style="background: linear-gradient(135deg, #74b9ff 0%, #00b894 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h4 style="margin-bottom: 10px;">🥈 Second Match</h4>
+                        <h3 style="margin-bottom: 10px;">Data Scientist</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 10px;">Match Score: <strong>88%</strong></p>
+                        <p style="font-size: 0.9rem;">Strong analytical skills align well with data science
+                            requirements.</p>
+                    </div>
+                    <div
+                        style="background: linear-gradient(135deg, #fdcb6e 0%, #ff7675 100%); color: white; padding: 20px; border-radius: 10px;">
+                        <h4 style="margin-bottom: 10px;">🥉 Third Match</h4>
+                        <h3 style="margin-bottom: 10px;">AI Researcher</h3>
+                        <p style="font-size: 0.95rem; margin-bottom: 10px;">Match Score: <strong>84%</strong></p>
+                        <p style="font-size: 0.9rem;">Research mindset and technical foundation are strong.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div
+                style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); margin-bottom: 30px;">
+                <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                    <i style="font-size: 1.5rem;">📚</i> Learning Progress
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="border-left: 4px solid #667eea; padding-left: 15px;">
+                        <h4 style="color: #667eea; margin-bottom: 8px;">Python Fundamentals</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 8px;">Completed ✓</p>
+                        <p style="font-size: 0.9rem;"><strong>12/12</strong> modules completed</p>
+                    </div>
+                    <div style="border-left: 4px solid #764ba2; padding-left: 15px;">
+                        <h4 style="color: #764ba2; margin-bottom: 8px;">Machine Learning Basics</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 8px;">In Progress</p>
+                        <p style="font-size: 0.9rem;\"><strong>8/12</strong> modules completed (67%)</p>
+                    </div>
+                    <div style="border-left: 4px solid #00b894; padding-left: 15px;">
+                        <h4 style="color: #00b894; margin-bottom: 8px;">Deep Learning Advanced</h4>
+                        <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 8px;\">Not Started</p>
+                        <p style="font-size: 0.9rem;\"><strong>0/10</strong> modules completed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements & Certificates -->
+            <div
+                style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); margin-bottom: 30px;">
+                <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                    <i style="font-size: 1.5rem;">🏆</i> Achievements & Certificates
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div
+                        style="background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%); color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; margin-bottom: 10px;">🎖️</div>
+                        <h4>Python Expert</h4>
+                        <p style="font-size: 0.9rem;\">Certified March 2024</p>
+                    </div>
+                    <div style=\"background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: white; padding:
+                        20px; border-radius: 10px; text-align: center;\">
+                        <div style=\"font-size: 2.5rem; margin-bottom: 10px;\">⭐</div>
+                        <h4>Top Performer</h4>
+                        <p style=\"font-size: 0.9rem;\">Achieved February 2024</p>
+                    </div>
+                    <div style=\"background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%); color: white; padding:
+                        20px; border-radius: 10px; text-align: center;\">
+                        <div style=\"font-size: 2.5rem; margin-bottom: 10px;\">🚀</div>
+                        <h4>ML Training Badge</h4>
+                        <p style=\"font-size: 0.9rem;\">Completed 50 hours</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Next Steps -->
+            <div
+                style="background: white; color: var(--dark); border-radius: 15px; padding: 25px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);">
+                <h3 style="margin-bottom: 20px; color: #667eea; display: flex; align-items: center; gap: 10px;">
+                    <i style="font-size: 1.5rem;">🎯</i> Recommended Next Steps
+                </h3>
+                <div>
+                    <div
+                        style="background: #f0f4ff; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea; margin-bottom: 12px;">
+                        <p style="margin-bottom: 5px;"><strong>1. Complete Machine Learning Basics Course</strong></p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Est. time: 4 weeks | Difficulty:
+                            Intermediate</p>
+                    </div>
+                    <div
+                        style="background: #f0f4ff; padding: 15px; border-radius: 8px; border-left: 4px solid #764ba2; margin-bottom: 12px;">
+                        <p style="margin-bottom: 5px;"><strong>2. Build 3 Real-World ML Projects</strong></p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Est. time: 8 weeks | Build portfolio</p>
+                    </div>
+                    <div
+                        style="background: #f0f4ff; padding: 15px; border-radius: 8px; border-left: 4px solid #00b894; margin-bottom: 12px;">
+                        <p style="margin-bottom: 5px;"><strong>3. Learn MLOps & Deployment</strong></p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Est. time: 6 weeks | Cloud platforms</p>
+                    </div>
+                    <div
+                        style="background: #f0f4ff; padding: 15px; border-radius: 8px; border-left: 4px solid #fdcb6e;">
+                        <p style="margin-bottom: 5px;"><strong>4. Interview Preparation</strong></p>
+                        <p style="color: var(--text-gray); font-size: 0.9rem;">Est. time: 4 weeks | Mock interviews</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="section-title">
+            <h2 style="color: white;">🤖 AI-Powered Career Intelligence</h2>
+        </div>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: auto;">
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🧠</div>
+                <h3 style="margin-bottom: 10px;">Neural Career Matching</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">AI analyzes your unique profile using deep learning to
+                    match you with careers that align with your strengths.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">⚡</div>
+                <h3 style="margin-bottom: 10px;">Real-Time Market Insights</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">Live AI analysis of job market trends, demand
+                    forecasting, and salary predictions powered by industry data.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🎯</div>
+                <h3 style="margin-bottom: 10px;">Personalized Roadmaps</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">AI generates custom learning paths with milestone
+                    recommendations and progression tracking.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">💬</div>
+                <h3 style="margin-bottom: 10px;">AI Career Coach</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">24/7 conversational AI readily answers your career
+                    questions and provides guidance instantly.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">📊</div>
+                <h3 style="margin-bottom: 10px;">Predictive Analytics</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">Machine learning predicts your career growth potential
+                    and optimal decision points.</p>
+            </div>
+            <div
+                style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
+                <div style="font-size: 2.5rem; margin-bottom: 10px;">🔍</div>
+                <h3 style="margin-bottom: 10px;">Skill Gap Analysis</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6;">AI identifies skill gaps and recommended courses to
+                    bridge them efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--white);">
+        <div class="section-title">
+            <h2>How Our AI Works For You</h2>
+        </div>
+        <div style="max-width: 1000px; margin: auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <div
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">
+                                1</div>
+                            <div>
+                                <h3 style="margin-bottom: 8px;">Analyze Your Profile</h3>
+                                <p style="color: var(--text-gray);">AI processes your skills, interests, achievements,
+                                    and preferences comprehensively.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <div
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">
+                                2</div>
+                            <div>
+                                <h3 style="margin-bottom: 8px;">Generate AI Insights</h3>
+                                <p style="color: var(--text-gray);">Machine learning models generate personalized career
+                                    recommendations with accuracy scores.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                            <div
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">
+                                3</div>
+                            <div>
+                                <h3 style="margin-bottom: 8px;">Create Learning Plan</h3>
+                                <p style="color: var(--text-gray);">AI designs a comprehensive learning path with
+                                    resources, timeline, and milestones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; gap: 20px;">
+                            <div
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0;">
+                                4</div>
+                            <div>
+                                <h3 style="margin-bottom: 8px;">Monitor & Adapt</h3>
+                                <p style="color: var(--text-gray);">Continuous AI monitoring adapts recommendations
+                                    based on your progress and market changes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="background: linear-gradient(135deg, #f5f6fa 0%, #e3e6f3 100%); border-radius: 15px; padding: 30px; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🤖✨</div>
+                    <h3 style="margin-bottom: 15px; color: #667eea;">AI Processing</h3>
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                        <p style="margin-bottom: 10px;">Your data processes through:</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 8px;">✓ 50+ skill analysis factors</li>
+                            <li style="margin-bottom: 8px;">✓ 10M+ career database entries</li>
+                            <li style="margin-bottom: 8px;">✓ Real-time job market data</li>
+                            <li style="margin-bottom: 8px;">✓ Predictive algorithms</li>
+                        </ul>
+                    </div>
+                    <button class="btn" style="width: 100%;">Start AI Assessment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="section" style="background: #fff;">
+        <div class="section-title">
+            <h2>Your Roadmap</h2>
+        </div>
+        <!-- Reusing table style but modernized container -->
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="background: var(--primary); color: rgb(72, 156, 246);">
+                    <th style="padding: 15px; text-align: left; border-radius: 8px 0 0 0;">Phase</th>
+                    <th style="padding: 15px; text-align: left;">Focus Area</th>
+                    <th style="padding: 15px; text-align: left; border-radius: 0 8px 0 0;">Deliverables</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 15px;">Phase 1</td>
+                    <td style="padding: 15px;">Assessment</td>
+                    <td style="padding: 15px;">Detailed Profile & Aptitude Score</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee; background: #f9f9f9;">
+                    <td style="padding: 15px;">Phase 2</td>
+                    <td style="padding: 15px;">Exploration</td>
+                    <td style="padding: 15px;">Top 5 Career Matches</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 15px;">Phase 3</td>
+                    <td style="padding: 15px;">Planning</td>
+                    <td style="padding: 15px;">Step-by-step Action Plan</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="gallery" class="section" style="background: #f9f9f9;">
+        <div class="section-title">
+            <h2>Explore Career Domains</h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Teamwork">
+                <div class="gallery-overlay">Team Collaboration</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Presentation">
+                <div class="gallery-overlay">Leadership</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Coding">
+                <div class="gallery-overlay">AI Technology</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Teaching">
+                <div class="gallery-overlay">AI Education</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz" class="section"
+        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="section-title">
+            <h2 style="color: white;">AI Career Compatibility Quiz</h2>
+        </div>
+        <div
+            style="background: white; border-radius: 15px; padding: 40px; max-width: 700px; margin: auto; text-align: center; color: var(--dark);">
+            <p style="font-size: 1.2rem; margin-bottom: 30px; font-weight: 600;">What's your ideal AI career focus?</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <button class="btn"
+                    onclick="alert('Perfect! ML Engineering combines coding with cutting-edge algorithms. Avg salary: $180K+')"
+                    style="margin: 0; font-size: 0.9rem;">💻 ML Engineer</button>
+                <button class="btn"
+                    onclick="alert('Excellent! Data Scientists turn data into insights. Avg salary: $150K+')"
+                    style="background: #667eea; margin: 0; font-size: 0.9rem;">📊 Data Scientist</button>
+                <button class="btn"
+                    onclick="alert('Great choice! AI researchers push boundaries of AI. Avg salary: $160K+')"
+                    style="background: #764ba2; margin: 0; font-size: 0.9rem;">🔬 AI Researcher</button>
+                <button class="btn"
+                    onclick="alert('Wise path! NLP specialists build language models. Avg salary: $170K+')"
+                    style="background: #ff7675; margin: 0; font-size: 0.9rem;">🗣️ NLP Specialist</button>
+                <button class="btn"
+                    onclick="alert('Important role! AI ethics ensures responsible AI. Avg salary: $140K+')"
+                    style="background: #00b894; margin: 0; font-size: 0.9rem;">⚖️ Ethics Officer</button>
+                <button class="btn" onclick="alert('Strategic path! AI architects design systems. Avg salary: $200K+')"
+                    style="background: #fdcb6e; color: var(--dark); margin: 0; font-size: 0.9rem;">🏗️ AI
+                    Architect</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: #f5f6fa;">
+        <div class="section-title">
+            <h2>AI Learning Resources</h2>
+        </div>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: auto;">
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">📚</i>
+                <h3>AI Fundamentals Course</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">12 weeks • Python & ML basics • $299</p>
+            </div>
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">🧠</i>
+                <h3>Deep Learning Master</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">16 weeks • Neural Networks • $399</p>
+            </div>
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">💬</i>
+                <h3>NLP & LLM Development</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">14 weeks • Transformers • $449</p>
+            </div>
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">📈</i>
+                <h3>Data Science Bootcamp</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">10 weeks • Analytics & ML • $349</p>
+            </div>
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">☁️</i>
+                <h3>MLOps & Deployment</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">8 weeks • Cloud & DevOps • $299</p>
+            </div>
+            <div
+                style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); text-align: center;">
+                <i style="font-size: 2.5rem; color: #667eea; margin-bottom: 10px; display: block;">⚖️</i>
+                <h3>Responsible AI</h3>
+                <p style="color: var(--text-gray); font-size: 0.9rem;">6 weeks • Ethics & Bias • $249</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, #f5f6fa 0%, #e3e6f3 100%);">
+        <div class="section-title">
+            <h2>🎥 AI Interview Simulator</h2>
+        </div>
+        <div style="max-width: 1100px; margin: auto;">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('technical')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">💻</div>
+                    <h3>Technical Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Test your coding & problem-solving skills
+                    </p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 15 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('behavioral')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🎭</div>
+                    <h3>Behavioral Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Showcase your soft skills & experience</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 20 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('hr')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">👔</div>
+                    <h3>HR Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Practice general & situational questions
+                    </p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 10 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('ml')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🤖</div>
+                    <h3>AI/ML Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Master machine learning concepts</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>6 Questions</span> • <span>⏱️ 25 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('dsa')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🧩</div>
+                    <h3>DSA Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Data Structures & Algorithms</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 25 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('oops')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">📦</div>
+                    <h3>OOPS Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Object Oriented Programming</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 20 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('dbms')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🗄️</div>
+                    <h3>DBMS Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Database Management Systems</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 20 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('os')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🖥️</div>
+                    <h3>OS Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Operating Systems Concepts</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 20 mins</span>
+                    </div>
+                </div>
+                <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: all 0.3s;"
+                    onclick="startInterview('cn')">
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;">🌐</div>
+                    <h3>CN Interview</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 15px;">Computer Networks & Security</p>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; gap: 5px; color: #667eea; font-weight: 600;">
+                        <span>5 Questions</span> • <span>⏱️ 20 mins</span>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center;">
+                <h3 style="margin-bottom: 15px;">✨ Why Use AI Interview Simulator?</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div>
+                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🎯</div>
+                        <p><strong>Instant Feedback</strong><br /><span
+                                style="color: var(--text-gray); font-size: 0.9rem;">Get detailed AI evaluation of your
+                                answers</span></p>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; margin-bottom: 8px;">📈</div>
+                        <p><strong>Track Progress</strong><br /><span
+                                style="color: var(--text-gray); font-size: 0.9rem;">Monitor improvement over multiple
+                                attempts</span></p>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🎓</div>
+                        <p><strong>Learn Tips</strong><br /><span
+                                style="color: var(--text-gray); font-size: 0.9rem;">Receive AI-suggested improvements &
+                                best practices</span></p>
+                    </div>
+                    <div>
+                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🏆</div>
+                        <p><strong>Confidence Boost</strong><br /><span
+                                style="color: var(--text-gray); font-size: 0.9rem;">Practice unlimited times before the
+                                real interview</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interview Modal -->
+    <div id="interviewModal" class="interview-modal">
+        <div class="interview-container">
+            <div class="interview-header">
+                <div style="font-size: 2rem;" id="interviewIcon">🤖</div>
+                <div>
+                    <h2 id="interviewTitle">Interview</h2>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Question <span id="currentQuestion">1</span>
+                        of <span id="totalQuestions">5</span></p>
+                </div>
+            </div>
+            <div class="interview-body">
+                <div class="interview-progress">
+                    <div class="interview-progress-bar" id="progressBar" style="width: 0%;"></div>
+                </div>
+                <div class="question-section">
+                    <div class="question-text" id="questionText">Loading question...</div>
+                    <div style="position: relative;">
+                        <textarea class="answer-input" id="answerInput"
+                            placeholder="Type your answer here... or use the mic button!"
+                            style="padding-right: 50px;"></textarea>
+                        <button id="interviewMicBtn" onclick="toggleInterviewSpeech()"
+                            style="position: absolute; right: 10px; bottom: 10px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #667eea;">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+                <div
+                    style="background: #f0f4ff; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #667eea;"><strong>💡 Tip:</strong> <span
+                            id="tipText">Provide detailed, thoughtful answers.</span></p>
+                </div>
+                <div id="feedbackContainer"></div>
+                <div class="interview-buttons">
+                    <button class="btn-interview btn-close" onclick="closeInterview()">Cancel</button>
+                    <button class="btn-interview btn-next" onclick="nextQuestion()">Next Question</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section-title">
+        <h2>Start Your AI Career Journey</h2>
+        <p style="color: var(--text-gray); margin-top: 15px;">📞 Call us: <strong style="color: #667eea;">+91
+                9517480434</strong> | 📧 Email: <strong style="color: #667eea;">singhshivam41273@gmail.com</strong></p>
+    </div>
+    <div class="contact-container">
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-control" placeholder="Your Mobile Number" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </div>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <p style="font-size: 1.1rem; margin-bottom: 10px;"><strong>Contact Us</strong></p>
+            <p style="margin-bottom: 8px;"><i class="fas fa-phone" style="margin-right: 10px;"></i><a
+                    href="tel:9517480434" style="color: white; text-decoration: none;">+91 9517480434</a></p>
+            <p style="margin-bottom: 15px;"><i class="fas fa-envelope" style="margin-right: 10px;"></i><a
+                    href="mailto:singhshivam41273@gmail.com"
+                    style="color: white; text-decoration: none;">singhshivam41273@gmail.com</a></p>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2026 EduPath. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating AI Chatbot -->
+    <div class="floating-chat">
+        <div class="chat-bubble" id="chatBubble">
+            <!-- Animated Robot CSS Structure -->
+            <div class="robot-antenna"></div>
+            <div class="robot-ears">
+                <div class="robot-ear"></div>
+                <div class="robot-ear"></div>
+            </div>
+            <div class="robot-face">
+                <div class="robot-eyes">
+                    <div class="robot-eye"></div>
+                    <div class="robot-eye"></div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div>
+                    <h3 style="margin: 0; font-size: 1rem;">🤖 AI Career Coach</h3>
+                    <p style="margin: 5px 0 0 0; font-size: 0.85rem; opacity: 0.9;">Always here to help</p>
+                </div>
+                <button class="voice-toggle" id="voiceToggle" title="Toggle Voice">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">
+                    <p>Hello! 👋 I'm your AI Career Coach. Ask me anything about career paths, AI careers, or your
+                        development journey!</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask a question..." />
+                <button id="micButton" onclick="toggleSpeech()" style="margin-right: 5px; background: #6c5ce7;"><i
+                        class="fas fa-microphone"></i></button>
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🎬 Chat script loading...');
+
+        // Floating Chatbot Handler
+        const chatBubble = document.getElementById('chatBubble');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const voiceToggle = document.getElementById('voiceToggle');
+        const micButton = document.getElementById('micButton');
+
+        // Verify all elements loaded
+        console.log('📊 Element Check:');
+        console.log('  chatBubble:', chatBubble ? '✅' : '❌');
+        console.log('  chatWindow:', chatWindow ? '✅' : '❌');
+        console.log('  chatInput:', chatInput ? '✅' : '❌');
+        console.log('  chatMessages:', chatMessages ? '✅' : '❌');
+        console.log('  voiceToggle:', voiceToggle ? '✅' : '❌');
+        console.log('  micButton:', micButton ? '✅' : '❌');
+
+        if (!chatInput || !chatMessages) {
+            console.error('❌ CRITICAL: Required chat elements not found!');
+        } else {
+            console.log('✅ All critical chat elements loaded successfully');
+        }
+
+        // Speech Recognition Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = null;
+        let isListening = false;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isListening = true;
+                micButton.style.background = '#ff7675'; // Red when listening
+                micButton.innerHTML = '<i class="fas fa-stop"></i>';
+                chatInput.placeholder = "Listening...";
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micButton.style.background = '#6c5ce7'; // Back to purple
+                micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+                chatInput.placeholder = "Ask a question...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                sendMessage(); // Auto-send
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error', event.error);
+                isListening = false;
+                micButton.style.background = '#6c5ce7';
+                micButton.innerHTML = '<i class="fas fa-microphone"></i>';
+                chatInput.placeholder = "Error. Try again.";
+            };
+        } else {
+            micButton.style.display = 'none'; // Hide if not supported
+            console.log("Web Speech API not supported");
+        }
+
+        function toggleSpeech() {
+            if (!recognition) {
+                alert("Voice input is not supported in this browser. Try Chrome.");
+                return;
+            }
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // Speech Synthesis Setup
+        let isVoiceEnabled = true;
+        const synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+
+        if (!synth) {
+            console.log('⚠️ Speech synthesis not supported in this browser. Voice output disabled.');
+            isVoiceEnabled = false;
+            if (voiceToggle) {
+                voiceToggle.style.display = 'none';
+            }
+        }
+
+        if (voiceToggle) {
+            voiceToggle.addEventListener('click', () => {
+                if (!synth) return;
+                isVoiceEnabled = !isVoiceEnabled;
+                const icon = voiceToggle.querySelector('i');
+                if (isVoiceEnabled) {
+                    icon.className = 'fas fa-volume-up';
+                } else {
+                    icon.className = 'fas fa-volume-mute';
+                    synth.cancel(); // Stop speaking immediately
+                }
+            });
+        }
+
+        function speak(text) {
+            if (!isVoiceEnabled || !synth) return;
+            if (synth.speaking) {
+                console.error('speechSynthesis.speaking');
+                return;
+            }
+            if (text !== '') {
+                const utterThis = new SpeechSynthesisUtterance(text);
+                utterThis.onend = function (event) {
+                    console.log('SpeechSynthesisUtterance.onend');
+                }
+                utterThis.onerror = function (event) {
+                    console.error('SpeechSynthesisUtterance.onerror');
+                }
+                // Select a preferred voice if available
+                const voices = synth.getVoices ? synth.getVoices() : [];
+                const preferredVoice = voices.find(voice => voice.name.includes('Google US English') || voice.name.includes('Microsoft Zira') || voice.lang === 'en-US');
+                if (preferredVoice) utterThis.voice = preferredVoice;
+
+                utterThis.pitch = 1;
+                utterThis.rate = 1;
+                synth.speak(utterThis);
+            }
+        }
+
+        chatBubble.addEventListener('click', () => {
+            chatWindow.classList.toggle('active');
+        });
+
+        // Auto-open chat after a delay to engage user
+        setTimeout(() => {
+            if (!chatWindow.classList.contains('active')) {
+                chatWindow.classList.add('active');
+                // Play a subtle notification sound if desired (omitted for strictly silent UI)
+            }
+        }, 3000);
+
+        const knowledgeBase = [
+            {
+                patterns: ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "sup", "yo"],
+                response: "Hello! 👋 I'm your AI Career Coach. I'm here to help you navigate your career path in AI and Tech. What can I do for you today? Feel free to ask me about:\n• Career paths & salaries\n• Learning resources\n• Interview preparation\n• Skills & technologies\n• Job opportunities"
+            },
+            {
+                patterns: ["weather", "forecast", "sunny", "rain", "climate"],
+                response: "I think it's sunny today. ☀️"
+            },
+            {
+                patterns: ["how are you", "how do you do", "what's up", "how's it going"],
+                response: "I'm doing great, thanks for asking! 😊 I'm always excited to help people discover their potential in AI and tech. How can I assist you with your career journey today?"
+            },
+            {
+                patterns: ["salary", "earn", "pay", "compensation", "money", "package", "income"],
+                response: "AI professionals are among the highest paid in tech! 💰\n\n• ML Engineers: $150K-$250K\n• Data Scientists: $120K-$200K\n• AI Architects: $180K-$280K\n• NLP Specialists: $130K-$220K\n• Computer Vision Engineers: $140K-$210K\n\nLocation, experience, and company size significantly impact these figures. Entry-level positions typically start at $80K-$120K."
+            },
+            {
+                patterns: ["course", "learn", "study", "education", "degree", "certificate", "start", "begin", "training"],
+                response: "Great question! Here's my recommended learning path:\n\n1. 🐍 Start with Python & Math fundamentals (2-3 months)\n2. 📊 Learn Data Analysis & Statistics (2 months)\n3. 🤖 Machine Learning Basics (3-4 months)\n4. 🧠 Deep Learning & Neural Networks (3-4 months)\n5. 🎯 Specialize (NLP, Computer Vision, etc.)\n\nCheck out our 'Best Resources' section for platforms like Coursera, Udacity, and fast.ai!"
+            },
+            {
+                patterns: ["python", "coding", "programming", "language", "java", "c++", "stack", "javascript"],
+                response: "Python is the undisputed king of AI development! 🐍\n\nWhy Python?\n• Rich ecosystem (TensorFlow, PyTorch, scikit-learn)\n• Easy to learn and read\n• Huge community support\n• Industry standard\n\nOther useful languages:\n• R for statistics\n• C++ for high-performance systems\n• JavaScript for web-based ML\n\nI strongly suggest mastering Python first!"
+            },
+            {
+                patterns: ["job", "work", "career", "role", "position", "vacancy", "hiring", "employment", "opportunity"],
+                response: "The AI job market is absolutely booming! 🚀\n\n📈 Key Stats:\n• 35%+ YoY growth in AI roles\n• 150K+ open positions globally\n• 500% demand increase over 5 years\n\nTop hiring companies:\n• Tech giants: Google, Amazon, Microsoft, Meta\n• AI startups: OpenAI, Anthropic, Hugging Face\n• Traditional companies transforming with AI\n\nCheck LinkedIn, Indeed, and AngelList for opportunities!"
+            },
+            {
+                patterns: ["interview", "prepare", "preparation", "question", "test", "tip", "practice"],
+                response: "Interview prep is crucial! Here's my advice:\n\n🎯 Technical Prep:\n• Practice coding on LeetCode/HackerRank\n• Review ML algorithms & concepts\n• Build 2-3 portfolio projects\n\n💬 Behavioral Prep:\n• Prepare STAR method stories\n• Research the company\n• Practice common questions\n\n🤖 Use our AI Interview Simulator above to practice with instant feedback!"
+            },
+            {
+                patterns: ["resume", "cv", "portfolio", "project", "github"],
+                response: "Your portfolio is your superpower! 💪\n\nEssential elements:\n✓ GitHub with 3-5 quality projects\n✓ Clean, well-documented code\n✓ Real-world problem solutions\n✓ Deployed models (bonus!)\n\nProject ideas:\n• Image classifier\n• Chatbot with NLP\n• Recommendation system\n• Time series forecasting\n• Sentiment analysis tool\n\nQuality > Quantity always!"
+            },
+            {
+                patterns: ["machine learning", "ml", "deep learning", "neural network", "algorithm"],
+                response: "Machine Learning is fascinating! 🧠\n\nKey concepts to master:\n• Supervised vs Unsupervised learning\n• Classification & Regression\n• Neural Networks & Deep Learning\n• Model evaluation & optimization\n• Feature engineering\n\nPopular algorithms:\n• Linear/Logistic Regression\n• Decision Trees & Random Forests\n• SVM, KNN\n• Neural Networks (CNN, RNN, Transformers)\n\nWhat specific area interests you?"
+            },
+            {
+                patterns: ["tensorflow", "pytorch", "keras", "framework", "library", "tool"],
+                response: "Great frameworks to learn! 🛠️\n\nTensorFlow:\n• Google's framework\n• Production-ready\n• Great for deployment\n• TensorFlow Lite for mobile\n\nPyTorch:\n• Facebook's framework\n• Research-friendly\n• Dynamic computation\n• Growing industry adoption\n\nKeras:\n• High-level API\n• Beginner-friendly\n• Runs on TensorFlow\n\nI recommend starting with Keras, then diving into PyTorch or TensorFlow!"
+            },
+            {
+                patterns: ["data science", "data scientist", "data analysis", "analytics"],
+                response: "Data Science is an amazing field! 📊\n\nCore skills needed:\n• Python & SQL\n• Statistics & Probability\n• Data visualization (Matplotlib, Seaborn)\n• ML algorithms\n• Business acumen\n\nTypical workflow:\n1. Data collection & cleaning\n2. Exploratory analysis\n3. Feature engineering\n4. Model building\n5. Insights & communication\n\nAvg salary: $120K-$200K. Want to know more?"
+            },
+            {
+                patterns: ["nlp", "natural language", "text", "language model", "gpt", "bert", "transformer"],
+                response: "NLP is one of the hottest AI fields right now! 🗣️\n\nKey technologies:\n• Transformers (BERT, GPT)\n• Word embeddings (Word2Vec, GloVe)\n• Sequence models (LSTM, GRU)\n• Attention mechanisms\n\nApplications:\n• Chatbots & virtual assistants\n• Translation\n• Sentiment analysis\n• Text generation\n• Question answering\n\nSalary range: $130K-$220K. High demand!"
+            },
+            {
+                patterns: ["computer vision", "cv", "image", "cnn", "yolo", "object detection"],
+                response: "Computer Vision is revolutionizing industries! 👁️\n\nKey concepts:\n• CNNs (Convolutional Neural Networks)\n• Image classification\n• Object detection (YOLO, R-CNN)\n• Segmentation\n• Face recognition\n\nApplications:\n• Autonomous vehicles\n• Medical imaging\n• Security systems\n• AR/VR\n\nTools: OpenCV, TensorFlow, PyTorch\nSalary: $140K-$210K"
+            },
+            {
+                patterns: ["beginner", "start", "new", "first step", "where to begin", "getting started"],
+                response: "Welcome to your AI journey! 🎉\n\nStep-by-step roadmap:\n\n1️⃣ Learn Python basics (1-2 months)\n   • Variables, loops, functions\n   • Data structures\n   • OOP concepts\n\n2️⃣ Math foundations (1-2 months)\n   • Linear algebra\n   • Calculus basics\n   • Statistics & probability\n\n3️⃣ Start with ML (2-3 months)\n   • Take Andrew Ng's course\n   • Practice on Kaggle\n\n4️⃣ Build projects!\n\nDon't rush - consistency beats intensity!"
+            },
+            {
+                patterns: ["kaggle", "competition", "dataset", "practice"],
+                response: "Kaggle is perfect for hands-on learning! 🏆\n\nWhat Kaggle offers:\n• Free datasets\n• Competitions (beginner to expert)\n• Notebooks to learn from\n• Community discussions\n• Ranking system\n\nStart with:\n• Titanic survival prediction\n• House price prediction\n• Digit recognition (MNIST)\n\nCompeting helps you learn faster and build your portfolio!"
+            },
+            {
+                patterns: ["math", "mathematics", "statistics", "calculus", "linear algebra"],
+                response: "Math is the foundation of ML! 📐\n\nEssential topics:\n\n📊 Statistics:\n• Probability distributions\n• Hypothesis testing\n• Bayesian thinking\n\n🔢 Linear Algebra:\n• Matrices & vectors\n• Eigenvalues\n• Matrix operations\n\n📈 Calculus:\n• Derivatives (for optimization)\n• Gradients\n• Chain rule\n\nDon't worry - you'll learn as you go! Khan Academy and 3Blue1Brown are great resources."
+            },
+            {
+                patterns: ["cloud", "aws", "azure", "gcp", "google cloud", "deployment"],
+                response: "Cloud platforms are essential for ML deployment! ☁️\n\nTop platforms:\n\n🔶 AWS:\n• SageMaker for ML\n• EC2 for compute\n• S3 for storage\n\n🔷 Google Cloud:\n• Vertex AI\n• BigQuery\n• TPUs for training\n\n🟦 Azure:\n• Azure ML\n• Cognitive Services\n\nAll offer free tiers to start! Cloud skills boost your salary by 15-20%."
+            },
+            {
+                patterns: ["roadmap", "path", "plan", "timeline", "how long"],
+                response: "Here's a realistic timeline for becoming job-ready:\n\n📅 6-12 Month Plan:\n\nMonths 1-2: Python & Math basics\nMonths 3-4: Data analysis & ML fundamentals\nMonths 5-6: Deep learning & specialization\nMonths 7-9: Build 3-5 projects\nMonths 10-12: Interview prep & job search\n\nFull-time study: 6-9 months\nPart-time study: 12-18 months\n\nRemember: Quality learning > Speed!"
+            },
+            {
+                patterns: ["experience", "no experience", "entry level", "junior", "fresher"],
+                response: "No experience? No problem! 💪\n\nHow to break in:\n\n1. Build a strong portfolio (3-5 projects)\n2. Contribute to open source\n3. Write technical blogs\n4. Network on LinkedIn\n5. Apply to internships\n6. Consider bootcamps\n7. Get certifications\n\nEntry-level roles:\n• Junior Data Analyst\n• ML Intern\n• Data Science Associate\n• AI Research Assistant\n\nStarting salary: $60K-$90K, grows quickly!"
+            },
+            {
+                patterns: ["remote", "work from home", "freelance", "contract"],
+                response: "Remote AI jobs are abundant! 🏠\n\nBenefits:\n• Work from anywhere\n• Better work-life balance\n• Access to global opportunities\n• Often higher pay\n\nWhere to find remote jobs:\n• Remote.co\n• We Work Remotely\n• AngelList\n• LinkedIn (filter: remote)\n• Toptal (for freelance)\n\nMany companies now offer hybrid or fully remote positions!"
+            },
+            {
+                patterns: ["bootcamp", "course", "udacity", "coursera", "edx"],
+                response: "Great learning platforms! 🎓\n\nTop recommendations:\n\n🌟 Coursera:\n• Andrew Ng's ML course (FREE!)\n• Deep Learning Specialization\n• University partnerships\n\n🚀 Udacity:\n• Nanodegree programs\n• Project-based learning\n• Career services\n\n📚 edX:\n• MIT & Harvard courses\n• Professional certificates\n\n⚡ fast.ai:\n• Practical deep learning (FREE!)\n• Top-down approach\n\nAll are excellent - pick based on your learning style!"
+            },
+            {
+                patterns: ["book", "read", "reading", "resource", "material"],
+                response: "Essential AI/ML books: 📚\n\nBeginner:\n• 'Python for Data Analysis' - Wes McKinney\n• 'Hands-On ML' - Aurélien Géron\n\nIntermediate:\n• 'Deep Learning' - Goodfellow, Bengio, Courville\n• 'Pattern Recognition' - Bishop\n\nAdvanced:\n• 'Reinforcement Learning' - Sutton & Barto\n• Research papers on arXiv\n\nAlso check out:\n• Medium articles\n• Towards Data Science\n• Papers with Code"
+            },
+            {
+                patterns: ["thank", "thanks", "cool", "great", "awesome", "helpful", "appreciate"],
+                response: "You're very welcome! 🌟 I'm glad I could help. Remember, I'm always here if you have more questions about your career journey. Keep learning and stay curious! 🚀"
+            },
+            {
+                patterns: ["bye", "goodbye", "see you", "later", "exit"],
+                response: "Good luck with your AI journey! 👋 Remember:\n• Consistency is key\n• Build projects\n• Never stop learning\n• Join communities\n\nCome back anytime you need guidance. You've got this! 💪"
+            },
+            {
+                patterns: ["who are you", "what are you", "bot", "ai", "your name"],
+                response: "I'm EduPath's AI Career Coach! 🤖\n\nI'm here to:\n• Guide your career decisions\n• Answer questions about AI/ML\n• Recommend learning resources\n• Provide salary insights\n• Help with interview prep\n\nI'm powered by advanced AI and trained on thousands of career success stories. Think of me as your 24/7 career mentor!"
+            },
+            {
+                patterns: ["help", "what can you do", "features", "assist"],
+                response: "I can help you with many things! 🎯\n\n💼 Career Guidance:\n• Career path recommendations\n• Salary information\n• Job market insights\n\n📚 Learning:\n• Course recommendations\n• Learning roadmaps\n• Resource suggestions\n\n🎯 Skills:\n• Technology stack advice\n• Project ideas\n• Interview preparation\n\n🚀 Job Search:\n• Resume tips\n• Portfolio building\n• Interview strategies\n\nJust ask me anything!"
+            },
+            {
+                patterns: ["confused", "lost", "don't know", "unsure", "help me decide"],
+                response: "It's totally normal to feel overwhelmed! 😊\n\nLet's break it down:\n\n1. What interests you most?\n   • Working with data?\n   • Building AI models?\n   • Research?\n   • Applications?\n\n2. Your background?\n   • Complete beginner?\n   • Some programming?\n   • Career switcher?\n\n3. Your goal?\n   • Get a job?\n   • Start a business?\n   • Research?\n\nTell me more and I'll create a personalized plan for you!"
+            },
+            {
+                patterns: ["motivation", "inspire", "励", "encourage", "give up", "hard", "difficult"],
+                response: "Don't give up! You've got this! 💪\n\nRemember:\n• Every expert was once a beginner\n• Small progress daily = huge results\n• Mistakes are learning opportunities\n• The AI field needs diverse perspectives\n• Your unique background is an asset\n\n'The only way to do great work is to love what you do.' - Steve Jobs\n\nTake breaks when needed, but keep moving forward. The future is bright! 🌟"
+            },
+            {
+                patterns: ["age", "too old", "too young", "late", "early"],
+                response: "Age is just a number in tech! 🎂\n\nFacts:\n• People switch to AI at 20, 30, 40, 50+\n• Experience from other fields is valuable\n• Tech values skills over age\n• Continuous learning is the norm\n\nYounger? You have time to experiment!\nOlder? You have wisdom and perspective!\n\nThe best time to start was yesterday. The second best time is NOW! 🚀"
+            },
+            {
+                patterns: ["woman", "women", "female", "girl", "gender", "diversity"],
+                response: "Women in AI are making incredible contributions! 👩‍💻\n\nInspiring leaders:\n• Fei-Fei Li (Stanford AI Lab)\n• Timnit Gebru (AI ethics)\n• Kate Crawford (AI researcher)\n• Daphne Koller (Coursera co-founder)\n\nResources:\n• Women in Machine Learning (WiML)\n• AI4ALL\n• Girls Who Code\n\nThe field needs more diverse voices. Your perspective matters! 💪"
+            },
+            {
+                patterns: ["ethics", "bias", "fairness", "responsible", "safety"],
+                response: "AI Ethics is crucial! ⚖️\n\nKey concerns:\n• Algorithmic bias\n• Privacy & data protection\n• Transparency & explainability\n• Job displacement\n• Autonomous weapons\n\nWhat you can do:\n• Learn about fairness metrics\n• Test for bias in models\n• Consider societal impact\n• Stay informed on regulations\n\nEthical AI roles pay $110K-$190K and are growing fast!"
+            },
+            {
+                patterns: ["future", "trend", "next", "upcoming", "2024", "2025"],
+                response: "The future of AI is exciting! 🔮\n\nEmerging trends:\n• Large Language Models (LLMs)\n• Multimodal AI (text + image + audio)\n• Edge AI & TinyML\n• AI for climate & healthcare\n• Quantum ML\n• Explainable AI (XAI)\n• AI agents & automation\n\nSkills to focus on:\n• Prompt engineering\n• MLOps\n• Responsible AI\n• Domain expertise\n\nThe field is evolving fast - stay curious!"
+            }
+        ];
+
+        function findResponse(message) {
+            console.log('🔍 Finding response for:', message);
+            message = message.toLowerCase();
+            let bestMatch = null;
+            let maxScore = 0;
+
+            for (const entry of knowledgeBase) {
+                let score = 0;
+                for (const pattern of entry.patterns) {
+                    if (message.includes(pattern)) {
+                        score += 1;
+                    }
+                }
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = entry;
+                }
+            }
+
+            if (bestMatch && maxScore > 0) {
+                console.log('✅ Found match with score:', maxScore);
+                return bestMatch.response;
+            }
+
+            // Improved fallback response
+            console.log('⚠️ No match found, using fallback');
+            return "I heard you say: \"" + message + "\"\n\nI'm still learning! 🤖 Try asking me about:\n• Career paths & salaries\n• Learning resources & courses\n• Interview preparation\n• Programming languages\n• Job opportunities\n• Specific topics like ML, NLP, or Data Science\n\nOr just type 'help' to see what I can do!";
+        }
+
+        function sendMessage() {
+            console.log('🚀 sendMessage() called');
+
+            // Check if chatInput exists
+            if (!chatInput) {
+                console.error('❌ ERROR: chatInput element not found!');
+                alert('Error: Chat input not found. Please refresh the page.');
+                return;
+            }
+
+            // Check if chatMessages exists
+            if (!chatMessages) {
+                console.error('❌ ERROR: chatMessages element not found!');
+                alert('Error: Chat messages container not found. Please refresh the page.');
+                return;
+            }
+
+            const message = chatInput.value.trim();
+            console.log('📤 Sending message:', message);
+
+            if (!message) {
+                console.warn('⚠️ Empty message, aborting');
+                return;
+            }
+
+            try {
+                // User message
+                const userDiv = document.createElement('div');
+                userDiv.className = 'message user-message';
+                userDiv.innerHTML = `<p>${message}</p>`;
+                chatMessages.appendChild(userDiv);
+                console.log('✅ User message added to chat');
+
+                chatInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Show Typing Indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message ai-message';
+                typingDiv.innerHTML = `<div class="typing" style="font-size: 1.5rem; line-height: 10px; padding: 5px 10px;"><span>.</span><span>.</span><span>.</span></div>`;
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                console.log('⏳ Typing indicator shown');
+
+                // AI response delay
+                setTimeout(() => {
+                    try {
+                        chatMessages.removeChild(typingDiv); // Remove typing indicator
+                        console.log('🗑️ Typing indicator removed');
+
+                        const response = findResponse(message);
+                        console.log('💬 AI Response:', response.substring(0, 50) + '...');
+
+                        const aiDiv = document.createElement('div');
+                        aiDiv.className = 'message ai-message';
+                        aiDiv.innerHTML = `<p>${response.replace(/\n/g, '<br>')}</p>`; // Handle line breaks
+                        chatMessages.appendChild(aiDiv);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        console.log('✅ AI response added to chat');
+
+                        // Speak the response
+                        speak(response);
+                    } catch (error) {
+                        console.error('❌ Error in AI response:', error);
+                    }
+                }, 1000 + Math.random() * 500); // Random delay 1.0-1.5s
+            } catch (error) {
+                console.error('❌ Error in sendMessage:', error);
+                alert('An error occurred. Check the console for details.');
+            }
+        }
+
+        chatInput.addEventListener('keypress', (e) => {
+            console.log('⌨️ Key pressed:', e.key);
+            if (e.key === 'Enter') {
+                console.log('↩️ Enter key detected, calling sendMessage()');
+                sendMessage();
+            }
+        });
+
+        // AI Interview System
+        const interviewQuestions = {
+            technical: [
+                { q: "Explain the difference between Machine Learning and Deep Learning", tip: "Discuss key differences and use examples" },
+                { q: "How would you approach a data science problem from start to finish?", tip: "Outline your problem-solving methodology" },
+                { q: "What is overfitting and how do you prevent it?", tip: "Explain with real-world examples" },
+                { q: "Design an algorithm to detect fraudulent transactions", tip: "Think about data, features, and model selection" },
+                { q: "How do you handle missing data in a dataset?", tip: "Discuss multiple approaches and trade-offs" }
+            ],
+            behavioral: [
+                { q: "Tell me about a time you solved a complex problem at work", tip: "Use STAR method: Situation, Task, Action, Result" },
+                { q: "How do you handle failure and feedback?", tip: "Show growth mindset and learning ability" },
+                { q: "Describe a situation where you had to work with a difficult team member", tip: "Focus on communication and resolution" },
+                { q: "What's your biggest professional achievement?", tip: "Highlight impact and measurable results" },
+                { q: "How do you stay updated with industry trends?", tip: "Show genuine interest in continuous learning" }
+            ],
+            hr: [
+                { q: "Tell me about yourself", tip: "Keep it professional and relevant to the role" },
+                { q: "Why do you want to join our company?", tip: "Research the company and show genuine interest" },
+                { q: "What are your strengths and weaknesses?", tip: "Be honest but frame weaknesses positively" },
+                { q: "Where do you see yourself in 5 years?", tip: "Align with company growth and your career goals" },
+                { q: "What's your expected salary?", tip: "Research market rates before answering" }
+            ],
+            ml: [
+                { q: "Explain how neural networks work with backpropagation", tip: "Discuss forward pass, loss calculation, and gradient descent" },
+                { q: "What are the differences between supervised and unsupervised learning?", tip: "Provide concrete examples for each" },
+                { q: "How do you evaluate the performance of a classification model?", tip: "Discuss metrics: accuracy, precision, recall, F1-score" },
+                { q: "Explain the concept of feature engineering and its importance", tip: "Give practical examples from ML projects" },
+                { q: "What is cross-validation and why is it important?", tip: "Explain k-fold and other validation techniques" },
+                { q: "How would you handle a highly imbalanced dataset?", tip: "Discuss oversampling, undersampling, and weighted models" }
+            ],
+            dsa: [
+                { q: "Explain the difference between an Array and a Linked List.", tip: "Discuss memory allocation, insertion/deletion complexity." },
+                { q: "What is a Hash Table and how does it handle collisions?", tip: "Mention hash functions, chaining, and open addressing." },
+                { q: "Explain the concept of Binary Search. What is its time complexity?", tip: "Describe the divide and conquer approach, O(log n)." },
+                { q: "What is the difference between BFS and DFS?", tip: "Explain traversal methods (Queue vs Stack) and use cases." },
+                { q: "Explain Dynamic Programming with an example.", tip: "Mention overlapping subproblems and optimal substructure (e.g., Fibonacci)." }
+            ],
+            oops: [
+                { q: "What are the four pillars of OOPs?", tip: "Encapsulation, Abstraction, Inheritance, Polymorphism." },
+                { q: "Explain the difference between Overloading and Overriding.", tip: "Compile-time vs Run-time polymorphism." },
+                { q: "What is an Abstract Class vs Interface?", tip: "Discuss multiple inheritance, default implementation, and usage." },
+                { q: "Explain the concept of Encapsulation.", tip: "Data hiding and wrapping data/methods into a single unit." },
+                { q: "What is a Constructor?", tip: "Special method to initialize objects." }
+            ],
+            dbms: [
+                { q: "What is Normalization? Explain 1NF, 2NF, 3NF.", tip: "Process of organizing data to reduce redundancy." },
+                { q: "Explain ACID properties in a database.", tip: "Atomicity, Consistency, Isolation, Durability." },
+                { q: "Difference between SQL and NoSQL databases.", tip: "Structured (Relational) vs Unstructured (Document/Key-Value)." },
+                { q: "What is a Primary Key vs Foreign Key?", tip: "Unique identifier vs Reference to another table." },
+                { q: "Explain Indexing and why it is used.", tip: "Data structure to speed up data retrieval operations." }
+            ],
+            os: [
+                { q: "What is a Process vs Thread?", tip: "Heavyweight vs Lightweight execution unit." },
+                { q: "Explain Deadlock and necessary conditions.", tip: "Mutual Exclusion, Hold & Wait, No Preemption, Circular Wait." },
+                { q: "What is Virtual Memory?", tip: "Technique that gives an illusion of larger main memory." },
+                { q: "Explain Paging and Segmentation.", tip: "Memory management techniques." },
+                { q: "What is a Semaphore?", tip: "Variable used to control access to a common resource." }
+            ],
+            cn: [
+                { q: "Explain the OSI Model layers.", tip: "Physical, Data Link, Network, Transport, Session, Presentation, Application." },
+                { q: "Difference between TCP and UDP.", tip: "Connection-oriented (Reliable) vs Connectionless (Fast)." },
+                { q: "What is DNS and how does it work?", tip: "Domain Name System translating domain names to IP addresses." },
+                { q: "Explain HTTP vs HTTPS.", tip: "Hypertext Transfer Protocol & Secure version (Encryption)." },
+                { q: "What is a Firewall?", tip: "Network security system monitoring traffic." }
+            ]
+        };
+
+        const aiEvaluations = {
+            excellent: "Excellent answer! You demonstrated deep understanding and provided specific examples. Keep up the great work!",
+            good: "Good answer with solid understanding. Consider adding more specific examples or technical details.",
+            average: "Your answer shows understanding but could be improved. Add more examples and technical depth.",
+            needswork: "This answer needs more development. Consider researching this topic and trying again."
+        };
+
+        let currentInterview = null;
+        let currentQuestionIndex = 0;
+        let interviewAnswers = [];
+        let interviewStartTime = null;
+        let answerTimes = [];
+
+        function startInterview(type) {
+            currentInterview = type;
+            currentQuestionIndex = 0;
+            interviewAnswers = [];
+            answerTimes = [];
+            interviewStartTime = Date.now();
+            const modal = document.getElementById('interviewModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const questions = interviewQuestions[currentInterview];
+            const question = questions[currentQuestionIndex];
+            const total = questions.length;
+
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('totalQuestions').textContent = total;
+            document.getElementById('questionText').textContent = question.q;
+            document.getElementById('tipText').textContent = question.tip;
+            document.getElementById('answerInput').value = '';
+            document.getElementById('feedbackContainer').innerHTML = '';
+
+            const progressPercent = ((currentQuestionIndex + 1) / total) * 100;
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+
+            const icons = { technical: '💻', behavioral: '🎭', hr: '👔', ml: '🤖' };
+            document.getElementById('interviewIcon').textContent = icons[currentInterview];
+            document.getElementById('interviewTitle').textContent =
+                currentInterview.charAt(0).toUpperCase() + currentInterview.slice(1) + ' Interview';
+
+            // Speak the question
+            speak(question.q);
+        }
+
+        // Advanced Answer Analysis
+        function analyzeAnswer(answer) {
+            const wordCount = answer.trim().split(/\s+/).length;
+            const sentenceCount = answer.split(/[.!?]+/).length;
+            const hasExamples = /example|for instance|like|such as/i.test(answer);
+            const hasMetrics = /\d+%|score|rate|level|achieve/i.test(answer);
+            const keywordMatch = answer.toLowerCase().includes('ai') ||
+                answer.toLowerCase().includes('learn') ||
+                answer.toLowerCase().includes('data');
+
+            let score = 50;
+
+            if (wordCount >= 80 && wordCount <= 300) score += 15;
+            else if (wordCount > 300) score += 10;
+
+            if (hasExamples) score += 15;
+            if (hasMetrics) score += 10;
+            if (sentenceCount >= 3) score += 10;
+
+            let feedback = '';
+            if (score >= 85) {
+                feedback = '🌟 Excellent! Detailed, structured answer with great examples.';
+            } else if (score >= 70) {
+                feedback = '✅ Good answer. Consider adding more examples or metrics.';
+            } else if (score >= 55) {
+                feedback = '⚠️ Average answer. More detail and structure would help.';
+            } else {
+                feedback = '💡 This needs more development. Provide specific examples.';
+            }
+
+            return { score: Math.min(score, 100), feedback, wordCount, hasExamples };
+        }
+
+        // Interview Speech Logic
+        let interviewRecognition = null;
+        let isInterviewListening = false;
+        const interviewMicBtn = document.getElementById('interviewMicBtn');
+
+        if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            interviewRecognition = new SpeechRecognition();
+            interviewRecognition.continuous = true; // Keep listening while user speaks long answers
+            interviewRecognition.lang = 'en-US';
+            interviewRecognition.interimResults = true;
+
+            interviewRecognition.onstart = () => {
+                isInterviewListening = true;
+                interviewMicBtn.style.color = '#ff7675';
+                interviewMicBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                interviewMicBtn.classList.add('pulse');
+            };
+
+            interviewRecognition.onend = () => {
+                isInterviewListening = false;
+                interviewMicBtn.style.color = '#667eea';
+                interviewMicBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                interviewMicBtn.classList.remove('pulse');
+            };
+
+            interviewRecognition.onresult = (event) => {
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript + ' ';
+                    } else {
+                        // Interim results could be handled here if needed
+                    }
+                }
+                if (finalTranscript) {
+                    const input = document.getElementById('answerInput');
+                    input.value += finalTranscript;
+                    input.scrollTop = input.scrollHeight;
+                }
+            };
+        }
+
+        function toggleInterviewSpeech() {
+            if (!interviewRecognition) {
+                alert("Voice input not supported.");
+                return;
+            }
+            if (isInterviewListening) {
+                interviewRecognition.stop();
+            } else {
+                interviewRecognition.start();
+            }
+        }
+
+        function nextQuestion() {
+            // Stop listening when moving to next question
+            if (isInterviewListening && interviewRecognition) {
+                interviewRecognition.stop();
+            }
+
+            const answer = document.getElementById('answerInput').value.trim();
+
+            if (!answer) {
+                alert('Please provide an answer before continuing.');
+                return;
+            }
+
+            const analysis = analyzeAnswer(answer);
+            const answerTime = Math.floor((Date.now() - interviewStartTime) / 1000);
+
+            interviewAnswers.push({
+                question: interviewQuestions[currentInterview][currentQuestionIndex].q,
+                answer: answer,
+                score: analysis.score,
+                feedback: analysis.feedback,
+                time: answerTime,
+                wordCount: analysis.wordCount
+            });
+            answerTimes.push(answerTime);
+
+            const questions = interviewQuestions[currentInterview];
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                showAdvancedResults();
+            }
+        }
+
+        function showAdvancedResults() {
+            const avgScore = Math.round(interviewAnswers.reduce((sum, a) => sum + a.score, 0) / interviewAnswers.length);
+            const totalTime = Math.round((Date.now() - interviewStartTime) / 1000);
+            const avgWordCount = Math.round(interviewAnswers.reduce((sum, a) => sum + a.wordCount, 0) / interviewAnswers.length);
+
+            const strengths = [];
+            const improvements = [];
+
+            if (avgScore >= 75) strengths.push('• Strong technical knowledge');
+            if (avgWordCount >= 100) strengths.push('• Thorough and detailed responses');
+            if (totalTime < 300) improvements.push('• Consider taking more time for complex questions');
+            if (avgScore < 80) improvements.push('• Add more specific examples to answers');
+
+            const container = document.querySelector('.interview-container');
+            const careerMatch = generateCareerMatch(avgScore, currentInterview);
+
+            container.innerHTML = `
+                <div class="interview-header">
+                    <div style="font-size: 2.5rem;">🎉</div>
+                    <div>
+                        <h2>Interview Complete!</h2>
+                        <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Advanced Analysis Report</p>
+                    </div>
+                </div>
+                <div class="interview-body">
+                    <div class="interview-results">
+                        <div class="results-score">${avgScore}%</div>
+                        <div class="results-message">${getPerformanceLevel(avgScore)}</div>
+                        <p style="color: var(--text-gray); margin: 15px 0;">
+                            ⏱️ Total Time: ${Math.floor(totalTime / 60)}m ${totalTime % 60}s | 
+                            📝 Avg Answer Length: ${avgWordCount} words
+                        </p>
+                    </div>
+
+                    <div class="feedback-section">
+                        <div class="feedback-title">📊 Performance Breakdown</div>
+                        <div class="feedback-text">
+                            ${interviewAnswers.map((ans, i) => `
+                                <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
+                                    <strong>Q${i + 1}: ${ans.score}%</strong> - ${ans.feedback}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="feedback-section">
+                        <div class="feedback-title">💪 Strengths Identified</div>
+                        <div class="feedback-text">
+                            ${strengths.length > 0 ? strengths.join('<br/>') : '• Consistent effort and thoughtful responses'}
+                        </div>
+                    </div>
+
+                    <div class="feedback-section">
+                        <div class="feedback-title">🎯 Areas for Improvement</div>
+                        <div class="feedback-text">
+                            ${improvements.length > 0 ? improvements.join('<br/>') : '• You\'re doing great! Keep practicing'}
+                        </div >
+                    </div >
+
+                    <div class="feedback-section">
+                        <div class="feedback-title">🚀 Recommended Career Paths</div>
+                        <div class="feedback-text">
+                            ${careerMatch}
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🏆</div>
+                        <strong>Overall Score: ${avgScore}/100</strong>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9rem;">Your profile has been saved and analyzed with our ML model.</p>
+                    </div>
+
+                    <div class="interview-buttons">
+                        <button class="btn-interview btn-close" onclick="closeInterview()">Close</button>
+                        <button class="btn-interview btn-next" onclick="submitToBackend('${currentInterview}', ${avgScore})">Save & Analyze</button>
+                    </div>
+                </div >
+                `;
+        }
+
+        function getPerformanceLevel(score) {
+            if (score >= 90) return '🌟 Outstanding! Exceptional Interview Performance';
+            if (score >= 80) return '⭐ Excellent! Very Strong Interview';
+            if (score >= 70) return '✅ Good! Solid Interview Performance';
+            if (score >= 60) return '📈 Average. Room for Improvement';
+            return '💪 Keep Practicing!';
+        }
+
+        function generateCareerMatch(score, interviewType) {
+            const careerMatches = {
+                technical: '<strong>ML Engineer (95%)</strong> • Data Scientist (88%) • AI Researcher (82%)',
+                behavioral: '<strong>Team Lead (92%)</strong> • Product Manager (85%) • Consultant (80%)',
+                hr: '<strong>HR Manager (88%)</strong> • Recruiter (82%) • Operations (78%)',
+                ml: '<strong>AI Engineer (96%)</strong> • NLP Specialist (89%) • Research Scientist (84%)',
+                dsa: '<strong>Backend Engineer (95%)</strong> • Software Architect (90%) • Competitive Programmer',
+                oops: '<strong>Software Developer (94%)</strong> • System Architect (88%) • Java/C++ Dev',
+                dbms: '<strong>Database Administrator (92%)</strong> • Data Engineer (88%) • Backend Dev',
+                os: '<strong>Systems Engineer (93%)</strong> • DevOps Engineer (89%) • OS Developer',
+                cn: '<strong>Network Engineer (91%)</strong> • Cyber Security Analyst (88%) • Cloud Engineer'
+            };
+            return careerMatches[interviewType] || 'Multiple career paths available';
+        }
+
+        function submitToBackend(interviewType, score) {
+            const userData = {
+                interviewType: interviewType,
+                score: score,
+                answers: interviewAnswers,
+                timestamp: new Date().toISOString(),
+                totalTime: Math.round((Date.now() - interviewStartTime) / 1000)
+            };
+
+            // Simulate backend API call
+            console.log('Submitting to backend:', userData);
+            alert(`✅ Your interview data(Score: ${score} %) has been saved!\n\nIn production, this would: \n• Train ML models with your data\n• Generate career recommendations\n• Update your profile\n• Track progress over time`);
+
+            closeInterview();
+        }
+
+        function closeInterview() {
+            const modal = document.getElementById('interviewModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Scroll Animations (Intersection Observer)
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Trigger Counter Animation if it's the stats section
+                    if (entry.target.classList.contains('stat-item')) {
+                        const counter = entry.target.querySelector('.stat-number');
+                        const target = +counter.getAttribute('data-target');
+                        const increment = target / 50;
+
+                        let current = 0;
+                        const updateCounter = () => {
+                            if (current < target) {
+                                current += increment;
+                                counter.innerText = Math.ceil(current);
+                                setTimeout(updateCounter, 30);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCounter();
+                    }
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .stat-item, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // User Details Form Handler
+        const userDetailsModal = document.getElementById('userDetailsModal');
+        const userDetailsForm = document.getElementById('userDetailsForm');
+
+        // Check if user has already submitted details
+        const userDetailsSubmitted = localStorage.getItem('userDetailsSubmitted');
+        if (userDetailsSubmitted === 'true') {
+            userDetailsModal.classList.add('hidden');
+        }
+
+        userDetailsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('userName').value,
+                email: document.getElementById('userEmail').value,
+                phone: document.getElementById('userPhone').value,
+                age: document.getElementById('userAge').value,
+                education: document.getElementById('userEducation').value,
+                interest: document.getElementById('userInterest').value,
+                location: document.getElementById('userLocation').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Store in localStorage
+            localStorage.setItem('userDetails', JSON.stringify(formData));
+            localStorage.setItem('userDetailsSubmitted', 'true');
+
+            // Show success message
+            const submitBtn = e.target.querySelector('.btn-submit-details');
+            submitBtn.textContent = 'Welcome! Redirecting...';
+            submitBtn.disabled = true;
+
+            // Hide modal and show welcome message
+            setTimeout(() => {
+                userDetailsModal.classList.add('hidden');
+
+                // Show personalized welcome in chat (with null check)
+                if (chatMessages && chatWindow) {
+                    const welcomeMessage = `Welcome ${formData.name}! 🎉 I'm excited to help you on your journey to becoming a ${formData.interest.replace('-', ' ')}. Let's get started!`;
+
+                    // Add welcome message to chat
+                    const aiDiv = document.createElement('div');
+                    aiDiv.className = 'message ai-message';
+                    aiDiv.innerHTML = `<p>${welcomeMessage}</p>`;
+                    chatMessages.appendChild(aiDiv);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    // Auto-open chat after a brief delay
+                    setTimeout(() => {
+                        chatWindow.classList.add('active');
+                    }, 500);
+                }
+            }, 1000);
+        });
+
+        // Contact Form Prevention
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+    </script>
+</body>
+
+</html>
